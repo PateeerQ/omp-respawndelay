@@ -30,6 +30,19 @@ new
     vehicleRespawnDelay[MAX_VEHICLES][VRD_VEHICLE]
 ;
 
+/*
+*   Hooked CreateVehicle function that will able to call OnVehicleDespawn after vehicle passing respawn_delay time
+*   @param modelid - Vehicle model id
+*   @param Float:x - X coordinate
+*   @param Float:y - Y coordinate
+*   @param Float:z - Z coordinate
+*   @param Float:angle - Angle
+*   @param color1 - Primary color
+*   @param color2 - Secondary color
+*   @param respawn_delay - Respawn delay (in seconds)
+*   @param addsiren - Add siren
+*/
+
 stock VRD_CreateVehicle(modelid,Float:x,Float:y,Float:z,Float:angle,color1,color2,respawn_delay,addsiren = 0){
     new
         vehicleid = CreateVehicle(modelid,x,y,z,angle,color1,color2,respawn_delay,addsiren)
@@ -47,6 +60,7 @@ stock VRD_CreateVehicle(modelid,Float:x,Float:y,Float:z,Float:angle,color1,color
     return vehicleid;
 }
 
+// Hooks
 public OnPlayerStateChange(playerid,newstate,oldstate) {
     if(newstate == PLAYER_STATE_DRIVER || newstate == PLAYER_STATE_PASSENGER)
     {
@@ -85,6 +99,11 @@ public OnPlayerStateChange(playerid,newstate,oldstate) {
     return 1;
 }
 
+
+/*
+*   Function that will be called after vehicle passing respawn_delay time
+*   @param vehicleid - Vehicle id
+*/
 forward OnVehicleDespawn(vehicleid);
 
 // Foreach Function
