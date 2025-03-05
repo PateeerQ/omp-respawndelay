@@ -42,7 +42,7 @@ stock VRD_CreateVehicle(modelid,Float:x,Float:y,Float:z,Float:angle,color1,color
 
         vehicleRespawnDelay[vehicleid][vrd_respawnDelay] = respawn_delay;
 
-        vehicleRespawnDelay[vehicleid][vrd_respawnTimer] = SetTimerEx("OnVehicleRespawn", vehicleRespawnDelay[vehicleid][vrd_respawnDelay] * 1000, false, "i", vehicleid);
+        vehicleRespawnDelay[vehicleid][vrd_respawnTimer] = SetTimerEx("OnVehicleRequestRespawn", vehicleRespawnDelay[vehicleid][vrd_respawnDelay] * 1000, false, "i", vehicleid);
     }
     return vehicleid;
 }
@@ -75,7 +75,7 @@ public OnPlayerStateChange(playerid,newstate,oldstate) {
                 KillTimer(vehicleRespawnDelay[vehicleid][vrd_respawnTimer]);
                 vehicleRespawnDelay[vehicleid][vrd_respawnTimer] = -1;
 
-                vehicleRespawnDelay[vehicleid][vrd_respawnTimer] = SetTimerEx("OnVehicleRespawn", vehicleRespawnDelay[vehicleid][vrd_respawnDelay] * 1000, false, "i", vehicleid);
+                vehicleRespawnDelay[vehicleid][vrd_respawnTimer] = SetTimerEx("OnVehicleDespawn", vehicleRespawnDelay[vehicleid][vrd_respawnDelay] * 1000, false, "i", vehicleid);
             }
         }
     }
@@ -85,7 +85,7 @@ public OnPlayerStateChange(playerid,newstate,oldstate) {
     return 1;
 }
 
-forward OnVehicleRespawn(vehicleid);
+forward OnVehicleDespawn(vehicleid);
 
 // Foreach Function
 stock VRD_IsVehicleOccupied(vehicleid){
