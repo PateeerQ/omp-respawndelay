@@ -47,6 +47,18 @@ stock VRD_CreateVehicle(modelid,Float:x,Float:y,Float:z,Float:angle,color1,color
     return vehicleid;
 }
 
+stock VRD_DestroyVehicle(vehicleid)
+{
+    if(vehicleid > -1 && vehicleid < MAX_VEHICLES)
+    {
+        KillTimer(vehicleRespawnDelay[vehicleid][vrd_respawnTimer]);
+        vehicleRespawnDelay[vehicleid][vrd_respawnTimer] = -1;
+
+        vehicleRespawnDelay[vehicleid][vrd_respawnDelay] = -1;
+    }
+    return DestroyVehicle(vehicleid);
+}
+
 public OnPlayerStateChange(playerid,newstate,oldstate) {
     if(newstate == PLAYER_STATE_DRIVER || newstate == PLAYER_STATE_PASSENGER)
     {
@@ -108,6 +120,12 @@ stock VRD_IsVehicleOccupied(vehicleid){
 #endif
 #define OnPlayerStateChange VRD_OnPlayerStateChange
 
+#if defined _ALS_DestroyVehicle
+	#undef DestroyVehicle
+#else
+	#define _ALS_DestroyVehicle
+#endif
+#define DestroyVehicle VRD_DestroyVehicle
 
 #if defined _ALS_CreateVehicle
 	#undef CreateVehicle
