@@ -41,8 +41,6 @@ stock VRD_CreateVehicle(modelid,Float:x,Float:y,Float:z,Float:angle,color1,color
     {
         KillTimer(vehicleRespawnDelay[vehicleid][vrd_respawnTimer]);
         vehicleRespawnDelay[vehicleid][vrd_respawnTimer] = -1;
-
-        vehicleRespawnDelay[vehicleid][vrd_respawnTimer] = SetTimerEx("OnVehicleRequestRespawn", vehicleRespawnDelay[vehicleid][vrd_respawnDelay] * 1000, false, "i", vehicleid);
     }
     return vehicleid;
 }
